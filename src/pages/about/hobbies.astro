@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="兴趣爱好">
+  <div class="content-box">
+    <h1 style="color: #FDE68A;">🎮 兴趣爱好</h1>
+    <p>前方的区域以后再来探索吧</p>
+    
+    <br/>
+    <a href="/about" class="back-link">&larr; 返回</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .content-box {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    text-align: center;
+    color: #fff;
+  }
+  .back-link {
+    color: #FDE68A;
+    text-decoration: none;
+    border: 1px solid #FDE68A;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+  }
+  .back-link:hover { background: #FDE68A; color: #000; }
+</style>

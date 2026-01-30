@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'; // 注意路径层级
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+// 提取标签并去重
+const tags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
+---
+
+<BaseLayout title="标签云">
+  <h1>🏷️ 标签分类</h1>
+  <div class="tags-container">
+    {tags.map((tag) => (
+      <a href={`/tags/${tag}`} class="tag-item">#{tag}</a>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .tags-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+  .tag-item {
+    background: var(--gray-light);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--gray-dark);
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+  .tag-item:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+</style>

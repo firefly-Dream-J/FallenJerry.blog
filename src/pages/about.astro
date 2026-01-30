@@ -1,63 +1,282 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const items = [
+  {
+    title: '自我介绍',
+    en: 'About Me',
+    link: '/about/intro',
+    color: '#5EEAD4',
+    delay: '0s',
+    height: '150px'
+  },
+  {
+    title: '兴趣爱好',
+    en: 'Hobbies',
+    link: '/about/hobbies',
+    color: '#FDE68A',
+    delay: '0.2s',
+    height: '220px'
+  },
+  {
+    title: '最喜欢的',
+    en: 'Favorites',
+    link: '/about/favorites',
+    color: '#F472B6',
+    delay: '0.4s',
+    height: '180px'
+  },
+  {
+    title: '生活日常',
+    en: 'Daily Life',
+    link: '/about/daily',
+    color: '#A78BFA',
+    delay: '0.6s',
+    height: '260px'
+  }
+];
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<BaseLayout title="关于我">
+  <div class="about-container">
+    
+    <div class="stars-wrapper">
+      {items.map((item) => (
+        <div class="pendant-wrapper" style={`--delay: ${item.delay}`}>
+          
+          <div class="pendant-group" style={`--line-height: ${item.height}; --item-color: ${item.color}`}>
+            
+            <div class="string"></div>
+            
+            <a href={item.link} class="star-shape" draggable="false">
+              <div class="star-content">
+                <span class="label-cn">{item.title}</span>
+                <span class="label-en">{item.en}</span>
+              </div>
+              
+              <svg class="star-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 0 C 100 0 130 70 200 100 C 130 130 100 200 100 200 C 100 200 70 130 0 100 C 70 70 100 0 100 0 Z" />
+              </svg>
+            </a>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+          </div>
+        </div>
+      ))}
+    </div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+  </div>
+</BaseLayout>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+<style is:global>
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+</style>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+<style>
+  .about-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* 核心修改：改为 visible 或 auto，防止左右摆动时被裁切 */
+    /* 如果必须 hidden (为了进场动画不出现滚动条)，则必须配合下面的 padding 使用 */
+    overflow: hidden; 
+    position: relative;
+    user-select: none;
+  }
+
+  .stars-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+    /* 间距设置：使用 vw 单位自适应屏幕宽度，防止过宽 */
+    gap: 8vw; 
+    
+    margin-top: -20px;
+    
+    /* 增加左右内边距，给星星摆动留出安全空间 */
+    padding: 0 100px; 
+    
+    /* 核心修改：禁止换行，强制平行排列 */
+    flex-wrap: nowrap; 
+    justify-content: center;
+    width: 100%;
+  }
+
+  .pendant-wrapper {
+    margin: 0;
+    padding: 0;
+    transform: translateY(-100vh);
+    animation: dropDown 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: var(--delay);
+    /* 确保容器不会被压缩 */
+    flex-shrink: 0; 
+  }
+
+  .pendant-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: grab;
+    position: relative; 
+    z-index: 1;
+  }
+  
+  .pendant-group:active {
+    cursor: grabbing;
+    z-index: 10; 
+  }
+
+  .string {
+    width: 2px;
+    height: var(--line-height);
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5), var(--item-color));
+    box-shadow: 0 0 10px var(--item-color);
+    transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+  }
+
+  .pendant-group:hover .string {
+    height: calc(var(--line-height) + 30px);
+  }
+
+  .star-shape {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .star-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    fill: rgba(15, 23, 42, 0.8);
+    stroke: var(--item-color);
+    stroke-width: 2px;
+    filter: drop-shadow(0 0 10px var(--item-color));
+    z-index: 1;
+    transition: 0.3s;
+  }
+
+  .star-content {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .label-cn { font-size: 1.1rem; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+  .label-en { font-size: 0.7rem; opacity: 0.8; font-family: monospace; }
+
+  .pendant-group:hover .star-bg {
+    fill: rgba(255, 255, 255, 0.15);
+    stroke-width: 3px;
+  }
+  .pendant-group:hover .star-shape {
+    filter: brightness(1.2);
+    transform: scale(1.05); 
+  }
+
+  @keyframes dropDown {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    /* 手机端缩小尺寸，防止挤在一起 */
+    .stars-wrapper { gap: 15px; padding: 0 10px; }
+    .star-shape { width: 100px; height: 100px; }
+    .label-cn { font-size: 0.9rem; }
+    .label-en { display: none; }
+    .string { height: calc(var(--line-height) * 0.6); }
+    .pendant-group:hover .string { height: calc(var(--line-height) * 0.6 + 20px); }
+  }
+</style>
+
+<script>
+  const groups = document.querySelectorAll('.pendant-group');
+
+  groups.forEach(group => {
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let hasMoved = false;
+
+    const el = group as HTMLElement;
+    const link = el.querySelector('a');
+    const stringEl = el.querySelector('.string') as HTMLElement;
+
+    el.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      hasMoved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      
+      el.style.transition = 'none';
+      if (stringEl) stringEl.style.transition = 'none';
+      el.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      
+      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+        hasMoved = true;
+      }
+
+      // 1. 计算旋转 (X轴)
+      let rotate = deltaX * 0.1; 
+      rotate = Math.max(-15, Math.min(15, rotate)); 
+      
+      // 2. 计算拉伸 (Y轴)
+      let stretch = Math.max(0, deltaY * 0.5); 
+      stretch = Math.min(stretch, 150); 
+      
+      el.style.transform = `rotate(${rotate}deg)`;
+      
+      if (stringEl) {
+        const baseHeightStr = el.style.getPropertyValue('--line-height');
+        stringEl.style.height = `calc(${baseHeightStr} + ${stretch}px)`;
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      el.style.cursor = 'grab';
+
+      // 回弹
+      el.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      el.style.transform = 'rotate(0deg)';
+      
+      if (stringEl) {
+        stringEl.style.transition = 'height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        stringEl.style.height = ''; 
+      }
+    });
+
+    if (link) {
+      link.addEventListener('click', (e) => {
+        if (hasMoved) e.preventDefault();
+      });
+    }
+  });
+</script>

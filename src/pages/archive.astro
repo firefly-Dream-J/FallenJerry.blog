@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+// 引入类型定义，解决 implicitly has an 'any' type 问题
+import type { CollectionEntry } from 'astro:content'; 
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const postsByYear = posts.reduce((acc: Record<string, CollectionEntry<'blog'>[]>, post) => {
+    const year = post.data.pubDate.getFullYear().toString();
+    
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+}, {});
+
+
+const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<BaseLayout title="文章归档">
+  <div class="archive-page">
+    <h1>🗄️ 归档</h1>
+    {years.map(year => (
+      <div class="year-section">
+        <h2 class="year-title">{year}</h2>
+        <ul class="post-list">
+          {postsByYear[year].map(post => (
+            <li>
+              <span class="date">{post.data.pubDate.toISOString().slice(5, 10)}</span>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .year-title { color: var(--accent); border-bottom: 2px solid #eee; margin-top: 2rem; }
+  .post-list { list-style: none; padding: 0; }
+  .post-list li { margin: 10px 0; display: flex; gap: 1rem; }
+  .date { color: #888; font-family: monospace; }
+  .post-list a { text-decoration: none; color: var(--gray-dark); }
+  .post-list a:hover { color: var(--accent); }
+</style>

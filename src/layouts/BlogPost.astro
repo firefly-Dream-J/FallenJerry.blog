@@ -1,86 +1,215 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import BaseLayout from './BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+  headings: { depth: number; slug: string; text: string }[];
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const { title, description, pubDate, updatedDate, heroImage, headings, tags } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+<BaseLayout title={title} description={description}>
+  
+  <div class="content-section">
+    <div class="grid-container">
+      
+      <div class="main-column fade-in-up">
+        <article class="glass-card article-card">
+          
+          {heroImage && <div class="hero-image">
+            <Image width={1200} height={600} src={heroImage} alt={title} class="cover-img" />
+          </div>}
+          
+          <div class="article-header">
+            <div class="date">
+              <Icon name="lucide:calendar" class="icon-inline" /> {pubDate.toISOString().slice(0, 10)}
+            </div>
+            <h1>{title}</h1>
+            
+            <div class="article-tags">
+              {tags && tags.map((tag) => (
+                <a href={`/tags/${tag}`} class="tag-box">
+                  # {tag}
+                </a>
+              ))}
+            </div>
+            <hr />
+          </div>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+          <div class="prose">
+            <slot />
+          </div>
+        </article>
+      </div>
+
+      <div class="sidebar-column fade-in-up delay-1">
+        
+        <div class="glass-card profile-card">
+          <div class="profile-banner"></div>
+          <div class="profile-content">
+            <img src="/avatar.jpg" alt="Avatar" class="profile-avatar" />
+            <h3 class="profile-name">Jerry</h3>
+            <p class="profile-bio">热爱生活，喜欢音乐</p>
+            <div class="social-links-simple">
+               <a href="https://github.com/firefly-Dream-J" target="_blank"><Icon name="lucide:github" /></a>
+               <a href="mailto:your_email@example.com"><Icon name="lucide:mail" /></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card toc-card sticky-card">
+          <h4><Icon name="lucide:list" class="icon-inline"/> 文章目录</h4>
+          <ul class="toc-list">
+            {headings.length === 0 && <li class="empty-toc">暂无目录</li>}
+            {headings.map((heading) => (
+              <li class={`toc-item depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+</style>
+
+<style>
+  .content-section {
+    width: 95vw; 
+    max-width: 2560px;
+    margin: 0 auto;
+    padding: 40px 0;
+    padding-top: 100px;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 340px; 
+    gap: 40px; 
+    align-items: start;
+  }
+
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 60px; 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+
+  .cover-img { width: 100%; height: auto; border-radius: 12px; margin-bottom: 30px; }
+
+  /* --- 头部样式修改 --- */
+  .article-header { text-align: center; margin-bottom: 60px; }
+  .article-header h1 { font-size: 3rem; color: #fff; margin: 15px 0 20px 0; }
+  .date { color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.1rem; }
+  
+  /* 👇 3. 新增：标签方框样式 CSS */
+  .article-tags {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .tag-box {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 方框边框 */
+    border-radius: 6px; /* 稍微圆角，想要完全直角改成 0 */
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .tag-box:hover {
+    border-color: var(--accent); /* 悬停变色 */
+    color: var(--accent);
+    background: rgba(94, 234, 212, 0.1);
+    transform: translateY(-2px);
+  }
+  /* 👆 CSS 结束 */
+
+  .prose { color: #e2e8f0; line-height: 2; font-size: 1.15rem; max-width: 100%; }
+  .prose :global(h2) { color: var(--accent); margin-top: 2.5em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; font-size: 2rem; }
+  .prose :global(h3) { color: #fff; margin-top: 2em; font-size: 1.5rem; }
+  .prose :global(p) { margin-bottom: 1.8em; }
+  
+  .prose :global(blockquote) { 
+    border-left: 5px solid var(--accent); 
+    background: rgba(255,255,255,0.03); 
+    padding: 20px 30px; 
+    margin: 30px 0;
+    font-size: 1.1em;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .prose :global(pre) { 
+    background: #0f172a !important; 
+    padding: 25px; 
+    border-radius: 12px; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    margin: 30px 0; 
+  }
+
+  .sidebar-column { display: flex; flex-direction: column; gap: 20px; }
+
+  .profile-card { padding: 0 !important; text-align: center; }
+  .profile-banner { height: 100px; width: 100%; background: linear-gradient(135deg, #1e293b, #0f172a); }
+  .profile-content { padding: 0 20px 25px 20px; }
+  .profile-avatar { width: 80px; height: 80px; border-radius: 50%; margin-top: -40px; border: 4px solid rgba(15, 23, 42, 0.8); background: #000; }
+  .profile-name { color: var(--accent); font-size: 1.4rem; margin: 10px 0 5px 0; font-weight: bold; }
+  .profile-bio { color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px; }
+  .social-links-simple { display: flex; justify-content: center; gap: 15px; }
+  .social-links-simple a { color: #94a3b8; transition: 0.3s; font-size: 1.3rem; padding: 10px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; }
+  .social-links-simple a:hover { color: var(--accent); background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+  .toc-card { padding: 30px; }
+  .sticky-card { position: sticky; top: 100px; }
+  .toc-card h4 { color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+  
+  .toc-list { list-style: none; padding: 0; margin: 0; max-height: 70vh; overflow-y: auto; }
+  .toc-item { margin-bottom: 10px; line-height: 1.6; }
+  .toc-item a { color: #94a3b8; text-decoration: none; transition: 0.2s; font-size: 1rem; display: block; border-left: 3px solid transparent; padding-left: 15px; }
+  .toc-item a:hover { color: var(--accent); border-left-color: var(--accent); background: rgba(255,255,255,0.03); }
+
+  .depth-2 { font-weight: 500; }
+  .depth-3 { padding-left: 30px; font-size: 0.9rem; opacity: 0.9; }
+  .empty-toc { color: #64748b; font-size: 0.9rem; font-style: italic; text-align: center; padding: 20px 0; }
+
+  .toc-list::-webkit-scrollbar { width: 4px; }
+  .toc-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  @media (max-width: 1024px) {
+    .content-section { width: 100%; padding: 20px; }
+    .grid-container { grid-template-columns: 1fr; gap: 30px; }
+    .sidebar-column { order: -1; margin-bottom: 10px; }
+    .toc-card { display: none; }
+    .glass-card { padding: 30px; }
+  }
+  
+  .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
+  .delay-1 { animation-delay: 0.2s; }
+  @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+</style>
