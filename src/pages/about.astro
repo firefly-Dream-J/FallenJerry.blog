@@ -83,8 +83,6 @@ const items = [
     width: 100%;
     display: flex;
     justify-content: center;
-    /* 核心修改：改为 visible 或 auto，防止左右摆动时被裁切 */
-    /* 如果必须 hidden (为了进场动画不出现滚动条)，则必须配合下面的 padding 使用 */
     overflow: hidden; 
     position: relative;
     user-select: none;
@@ -94,16 +92,9 @@ const items = [
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    
-    /* 间距设置：使用 vw 单位自适应屏幕宽度，防止过宽 */
     gap: 8vw; 
-    
     margin-top: -20px;
-    
-    /* 增加左右内边距，给星星摆动留出安全空间 */
     padding: 0 100px; 
-    
-    /* 核心修改：禁止换行，强制平行排列 */
     flex-wrap: nowrap; 
     justify-content: center;
     width: 100%;
@@ -115,7 +106,6 @@ const items = [
     transform: translateY(-100vh);
     animation: dropDown 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     animation-delay: var(--delay);
-    /* 确保容器不会被压缩 */
     flex-shrink: 0; 
   }
 
@@ -198,7 +188,6 @@ const items = [
   }
 
   @media (max-width: 768px) {
-    /* 手机端缩小尺寸，防止挤在一起 */
     .stars-wrapper { gap: 15px; padding: 0 10px; }
     .star-shape { width: 100px; height: 100px; }
     .label-cn { font-size: 0.9rem; }
@@ -242,11 +231,9 @@ const items = [
         hasMoved = true;
       }
 
-      // 1. 计算旋转 (X轴)
       let rotate = deltaX * 0.1; 
       rotate = Math.max(-15, Math.min(15, rotate)); 
       
-      // 2. 计算拉伸 (Y轴)
       let stretch = Math.max(0, deltaY * 0.5); 
       stretch = Math.min(stretch, 150); 
       
@@ -263,7 +250,6 @@ const items = [
       isDragging = false;
       el.style.cursor = 'grab';
 
-      // 回弹
       el.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       el.style.transform = 'rotate(0deg)';
       

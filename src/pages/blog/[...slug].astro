@@ -5,12 +5,11 @@ import BlogPost from '../../layouts/BlogPost.astro';
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
-		params: { slug: post.slug }, // 这里如果还报错，说明 content/config.ts 定义有问题，先照着改
+		params: { slug: post.slug }, 
 		props: post,
 	}));
 }
 
-// ✅ 关键修复：显式定义 Props 类型为博客文章条目
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;

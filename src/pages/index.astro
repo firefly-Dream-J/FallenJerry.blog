@@ -6,10 +6,8 @@ import { Icon } from 'astro-icon/components';
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 
-// --- 🏷️ 新增逻辑：提取并统计标签 ---
 const tags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
 
-// 统计数据
 const postCount = allPosts.length;
 const tagCount = tags.length;
 const categoryCount = 0; 
@@ -134,7 +132,6 @@ const categoryCount = 0;
 </style>
 
 <style>
-  /* --- Hero 全屏区域 --- */
   .hero-section {
     height: 100vh;
     width: 100%;
@@ -156,7 +153,6 @@ const categoryCount = 0;
   .scroll-arrow { position: absolute; bottom: 30px; cursor: pointer; color: var(--accent); transition: 0.3s; z-index: 5; }
   .scroll-arrow:hover { color: white; transform: scale(1.1); }
 
-  /* --- 布局核心样式 --- */
   .content-section {
     padding: 40px 20px;
     max-width: 1400px;
@@ -170,7 +166,6 @@ const categoryCount = 0;
     align-items: start;
   }
 
-  /* --- 深色毛玻璃卡片 --- */
   .glass-card {
     background: rgba(15, 23, 42, 0.6); 
     backdrop-filter: blur(12px);
@@ -211,7 +206,6 @@ const categoryCount = 0;
   .btn-outline { padding: 10px 30px; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent); transition: 0.3s; text-decoration: none; }
   .btn-outline:hover { background: var(--accent); color: #0F172A; font-weight: bold; }
 
-  /* --- 右侧侧边栏 --- */
   .sidebar-column { position: sticky; top: 100px; width: 100%; }
   .profile-card { padding: 0 !important; text-align: center; overflow: visible !important; } 
   .profile-banner { height: 100px; width: 100%; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 16px 16px 0 0;}
@@ -229,7 +223,6 @@ const categoryCount = 0;
   .follow-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; background: var(--accent); color: #0F172A; font-weight: bold; border-radius: 12px; transition: 0.3s; margin-bottom: 20px; text-decoration: none; }
   .follow-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
 
-  /* --- 🏷️ 标签云样式 (新) --- */
   .tags-section {
     padding: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
@@ -253,7 +246,6 @@ const categoryCount = 0;
   }
   .no-tags { font-size: 0.8rem; color: #64748b; font-style: italic; }
 
-  /* --- 社交图标样式 --- */
   .social-links { display: flex; justify-content: center; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 15px; }
   .social-btn-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
   .social-btn { color: #94a3b8; font-size: 1.1rem; transition: 0.3s; padding: 8px; width: 38px; height: 38px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; }

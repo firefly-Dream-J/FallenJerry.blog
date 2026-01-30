@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-// 引入类型定义，解决 implicitly has an 'any' type 问题
 import type { CollectionEntry } from 'astro:content'; 
 
 const posts = (await getCollection('blog')).sort(

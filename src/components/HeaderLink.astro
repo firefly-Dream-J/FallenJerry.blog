@@ -17,26 +17,24 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 <style>
 	a {
 		display: inline-flex;
-		align-items: center; /* 确保图标对齐 */
+		align-items: center; 
 		text-decoration: none;
-		color: var(--black); /* 默认是白色/浅色 */
+		color: var(--black); 
 		padding: 5px 10px;
 		border-radius: 8px;
 		transition: all 0.2s;
         font-weight: 500;
 	}
 
-	/* 悬停状态 */
 	a:hover {
 		color: var(--accent);
         background: rgba(255,255,255,0.05);
 	}
 
-	/* --- 核心修改：选中状态 (active) --- */
 	a.active {
-		color: var(--accent); /* 变成主题色 (青色) */
-		font-weight: bold;    /* 加粗 */
+		color: var(--accent); 
+		font-weight: bold;   
 		text-decoration: none; 
-        background: rgba(94, 234, 212, 0.15); /* 可选：加一个淡淡的背景色块，更像按钮 */
+        background: rgba(94, 234, 212, 0.15); 
 	}
 </style>

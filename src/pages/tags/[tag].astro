@@ -3,16 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 
-// 1. 静态路径生成：告诉 Astro 你的博客里到底有哪些标签页面需要生成
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
   
-  // 提取所有不重复的标签
   const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
 
-  // 为每一个标签生成一个页面路径
   return uniqueTags.map((tag) => {
-    // 过滤出包含这个标签的文章，并按时间倒序排列
     const filteredPosts = allPosts.filter((post) => 
       post.data.tags?.includes(tag)
     ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -24,7 +20,6 @@ export async function getStaticPaths() {
   });
 }
 
-// 2. 获取当前页面的标签名和文章数据
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
@@ -71,16 +66,15 @@ const { posts } = Astro.props;
     min-height: 100vh;
   }
 
-  /* 头部样式 */
+
   .tag-header { text-align: center; margin-bottom: 50px; }
   .tag-header h1 { font-size: 3rem; color: var(--accent); margin-bottom: 10px; text-shadow: 0 0 20px rgba(94, 234, 212, 0.3); }
   .hash { opacity: 0.5; }
   .tag-header p { color: #94a3b8; }
 
-  /* 列表容器 */
+
   .post-list-wrapper { display: flex; flex-direction: column; gap: 20px; }
 
-  /* 卡片样式 (复用你博客的毛玻璃风格) */
   .post-card {
     display: flex; justify-content: space-between; align-items: center;
     text-decoration: none; padding: 25px;
@@ -106,7 +100,6 @@ const { posts } = Astro.props;
   .btn-outline { padding: 10px 25px; border: 1px solid #475569; border-radius: 50px; color: #94a3b8; text-decoration: none; transition: 0.3s; }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(94, 234, 212, 0.1); }
 
-  /* 动画 */
   .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
   .delay-1 { animation-delay: 0.2s; }
   .delay-2 { animation-delay: 0.4s; }

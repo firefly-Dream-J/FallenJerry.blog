@@ -117,12 +117,10 @@ const { title, description, pubDate, updatedDate, heroImage, headings, tags } = 
 
   .cover-img { width: 100%; height: auto; border-radius: 12px; margin-bottom: 30px; }
 
-  /* --- 头部样式修改 --- */
   .article-header { text-align: center; margin-bottom: 60px; }
   .article-header h1 { font-size: 3rem; color: #fff; margin: 15px 0 20px 0; }
   .date { color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.1rem; }
   
-  /* 👇 3. 新增：标签方框样式 CSS */
   .article-tags {
     display: flex;
     justify-content: center;
@@ -134,8 +132,8 @@ const { title, description, pubDate, updatedDate, heroImage, headings, tags } = 
   .tag-box {
     display: inline-block;
     padding: 6px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* 方框边框 */
-    border-radius: 6px; /* 稍微圆角，想要完全直角改成 0 */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 6px; 
     color: #cbd5e1;
     text-decoration: none;
     font-size: 0.95rem;
@@ -144,12 +142,11 @@ const { title, description, pubDate, updatedDate, heroImage, headings, tags } = 
   }
 
   .tag-box:hover {
-    border-color: var(--accent); /* 悬停变色 */
+    border-color: var(--accent); 
     color: var(--accent);
     background: rgba(94, 234, 212, 0.1);
     transform: translateY(-2px);
   }
-  /* 👆 CSS 结束 */
 
   .prose { color: #e2e8f0; line-height: 2; font-size: 1.15rem; max-width: 100%; }
   .prose :global(h2) { color: var(--accent); margin-top: 2.5em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; font-size: 2rem; }

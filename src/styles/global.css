@@ -1,8 +1,3 @@
-/*
-  src/styles/global.css
-*/
-
-/* --- 1. 字体引入 --- */
 @font-face {
   font-family: "Atkinson";
   src: url("/fonts/atkinson-regular.woff") format("woff");
@@ -18,37 +13,31 @@
   font-display: swap;
 }
 
-/* --- 2. 全局变量 (流萤夜空配色) --- */
 :root {
-  /* 强调色：流萤的薄荷青 / 荧光绿 */
   --accent: #5EEAD4;       
   --accent-dark: #2DD4BF;  
-  --accent-secondary: #FDE68A; /* 辅助金色 */
+  --accent-secondary: #FDE68A; 
 
-  /* 文字颜色 (适应深色背景) */
-  --black: #F8FAFC;        /* 标题：亮白 */
-  --gray: #94A3B8;         /* 信息：蓝灰 */
-  --gray-dark: #E2E8F0;    /* 正文：灰白 */
   
-  /* 玻璃质感 */
-  --glass-bg: rgba(30, 41, 59, 0.7); /* 卡片背景：深蓝半透明 */
+  --black: #F8FAFC;       
+  --gray: #94A3B8;        
+  --gray-dark: #E2E8F0;    
+  
+
+  --glass-bg: rgba(30, 41, 59, 0.7); 
   --glass-border: rgba(255, 255, 255, 0.08);
   
   --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); 
   --border-radius: 16px;
 }
 
-/* --- 3. 页面基础 --- */
 body {
   font-family: "Atkinson", sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
   
-  /* --- 核心修改：背景色 --- */
-  /* 选择了一个深邃的夜空蓝，既护眼又契合壁纸色调 */
   background-color: #0F172A; 
-  /* 如果你想保留一点点纹理，可以加一个很淡的渐变，不加也可以 */
   background-image: linear-gradient(to bottom, #0F172A, #1E293B);
   background-attachment: fixed;
   
@@ -58,7 +47,6 @@ body {
   overflow-x: hidden;
 }
 
-/* 布局容器 */
 main {
   width: 960px;
   max-width: calc(100% - 2em);
@@ -66,7 +54,6 @@ main {
   padding: 3em 1em;
 }
 
-/* --- 4. 样式细节优化 --- */
 a { color: var(--accent); text-decoration: none; transition: 0.3s; }
 a:hover { color: var(--accent-secondary); text-shadow: 0 0 10px rgba(94,234,212,0.5); }
 
@@ -75,7 +62,6 @@ strong { color: var(--accent); }
 
 img { max-width: 100%; border-radius: var(--border-radius); }
 
-/* 引用块 */
 blockquote {
   border-left: 4px solid var(--accent);
   padding: 10px 20px;
@@ -84,13 +70,11 @@ blockquote {
   color: var(--gray);
 }
 
-/* 滚动条美化 */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #0F172A; }
 ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* 移动端适配 */
 @media (max-width: 720px) {
   body { font-size: 16px; }
   main { padding: 1em; }

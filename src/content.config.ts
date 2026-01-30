@@ -1,11 +1,6 @@
 import { defineCollection, z } from 'astro:content';
-// 删除或注释掉这一行： import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-    // ❌ 删除或注释掉 loader 这一行，让它恢复为标准的文件系统模式
-    // loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-
-    // Type-check frontmatter using a schema
     schema: ({ image }) =>
         z.object({
             title: z.string(),
