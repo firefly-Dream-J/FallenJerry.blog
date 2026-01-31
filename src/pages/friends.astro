@@ -1,19 +1,37 @@
 ---
+// 1. 引入 Astro 图片组件并重命名为 AstroImage
+import { Image as AstroImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+
+import DX3906Avatar from '../assets/friends/DX3906.avatar.jpg';
+import ctyAvatar from '../assets/friends/cty.avatar.png';
+
 const friends = [
-  {
-    name: "Astro 官方",
-    desc: "新一代静态网站生成器",
-    url: "https://astro.build",
-    avatar: "https://astro.build/favicon.svg"
-  },
   {
     name: "GitHub",
     desc: "代码托管与协作",
     url: "https://github.com",
-    avatar: "https://github.com/fluidicon.png"
+    avatar: "https://github.com/fluidicon.png" 
   },
+  {
+    name: "DX3906",
+    desc: "Do not go gentle into this good blog",
+    url: "https://dx3906lxr.github.io",
+    avatar: DX3906Avatar
+  },
+  {
+    name: "zenus10",
+    desc: "活着",
+    url: "https://zenus10.com/",
+    avatar: "https://gs.jurieo.com/gemini/official/s2/favicons?domain=zenus10.com&sz=128" 
+  },
+  {
+    name: "cty",
+    desc: "球球你别搬史了",
+    url: "https://notion-next-dx9u.vercel.app/",
+    avatar: ctyAvatar
+  }
 ];
 ---
 
@@ -24,7 +42,15 @@ const friends = [
   <div class="friends-grid">
     {friends.map(friend => (
       <a href={friend.url} target="_blank" class="friend-card">
-        <img src={friend.avatar} alt={friend.name} />
+        
+        <AstroImage 
+          src={friend.avatar as any}  
+          alt={friend.name}
+          width={100} 
+          height={100}
+          class="avatar-img" 
+        />
+        
         <div class="info">
           <h3>{friend.name}</h3>
           <p>{friend.desc}</p>
@@ -45,7 +71,7 @@ const friends = [
     display: flex;
     align-items: center;
     padding: 15px;
-   background: var(--glass-bg); 
+    background: var(--glass-bg); 
     backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
@@ -58,13 +84,17 @@ const friends = [
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: translateY(-2px);
   }
-  .friend-card img {
+  
+  /* 4. 优化了图片样式，确保圆角和大小统一 */
+  .friend-card .avatar-img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-right: 15px;
+    object-fit: cover; 
     background: #f5f5f5;
   }
+  
   .info h3 { margin: 0; font-size: 1.1rem; color: var(--accent); }
   .info p { margin: 5px 0 0; font-size: 0.85rem; color: #666; }
 </style>
